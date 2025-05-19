@@ -26,8 +26,16 @@ public class TicketMachine
         price = cost;
         balance = 0;
         total = 0;
+        
+        assert repOk() : "Estado no válido";
     }
 
+    public boolean repOk()
+    {
+        if (price < 0 || balance < 0 || total < 0)return false;
+        return true;
+    }
+    
     /**
      * @Return The price of a ticket.
      */
@@ -51,6 +59,7 @@ public class TicketMachine
      */
     public void insertMoney(int amount)
     {
+        assert repOk();
         if(amount > 0) {
             balance = balance + amount;
         }
@@ -58,6 +67,7 @@ public class TicketMachine
             System.out.println("Use a positive amount rather than: " +
                                amount);
         }
+        assert repOk();
     }
 
     /**
@@ -67,6 +77,7 @@ public class TicketMachine
      */
     public void printTicket()
     {
+        assert repOk();
         if(balance >= price) {
             // Simulate the printing of a ticket.
             System.out.println("##################");
@@ -87,12 +98,14 @@ public class TicketMachine
                            (amountLeftToPay) + " more cents.");
                     
         }
+        assert repOk();
     }
     public void emptyMachine()
     {
+        assert repOk();
         System.out.println(total);
         total = 0;
-        
+        assert repOk();
     }
 
     /**
@@ -101,9 +114,12 @@ public class TicketMachine
      */
     public int refundBalance()
     {
+        assert repOk();
         int amountToRefund;
         amountToRefund = balance;
         balance = 0;
+        assert repOk();
+
         return amountToRefund;
     }
 }
